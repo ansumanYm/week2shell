@@ -1,0 +1,40 @@
+
+
+--CREATE TABLE customer1(id int CONSTRAINT cust_uniq UNIQUE, name VARCHAR(30))
+/*
+INSERT INTO customer1 VALUES(1, 'Ram')
+INSERT INTO customer1 VALUES(2, 'kaam')
+INSERT INTO customer1 VALUES(3, 'Maam')
+INSERT INTO customer1 VALUES(NULL, 'maya')
+
+
+CREATE TABLE employees(id int, name varchar(30),
+			CONSTRAINT emp_comp PRIMARY KEY(id, name))
+
+INSERT INTO employees VALUES (1, 'tchandan')
+--INSERT INTO employees VALUES (1, 'tchandan')
+INSERT INTO employees VALUES (1, 'chandan')
+INSERT INTO employees VALUES (2, 'chandan')
+
+*/
+
+
+CREATE TABLE employees2(id int, name varchar(30), sal int constraint emp_chk check(sal > 5000))
+
+INSERT INTO employees2 VALUES(1, 'ram', 5001)
+INSERT INTO employees2 VALUES(1, 'sham', 500)
+
+-- Reference constrain
+
+CREATE TABLE suppliers(supplier_id int PRIMARY KEY, supplier_name varchar(30));
+
+CREATE TABLE prod(product_id int PRIMARY KEY, product_name varchar(30), supplier_id int constraint prod_fk FOREIGN KEY references suppliers(supplier_id))
+
+INSERT INTO suppliers VALUES (100, 'P&G')
+INSERT INTO suppliers VALUES (101, 'HUL')
+INSERT INTO suppliers VALUES (102, 'KkK')
+
+INSERT INTO prod VALUES (1, 'paste', 100)
+INSERT INTO prod VALUES (2, 'deo', 101)
+INSERT INTO prod VALUES (3, 'perfume', 101)
+INSERT INTO prod VALUES (4, 'baby powder', 104)

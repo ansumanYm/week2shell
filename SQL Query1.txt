@@ -1,0 +1,64 @@
+/*
+CREATE TABLE students( id int,
+					   student_name varchar(30),
+					   address1 varchar(30),
+					   city varchar(30))
+
+
+sp_tables
+
+sp_columns students
+
+INSERT INTO students VALUES(1, 'Ram', 'Bellandur', 'Bengaluru')
+
+INSERT INTO students VALUES(1, 'Shyam', 'null', 'Mumbai')
+SELECT student_name, id FROM students
+SELECT * INTO student1 FROM students -- Create new table from existing table with same structure
+SELECT * FROM student1
+
+
+SELECT * INTO students2 FROM students WHERE 1=5; -- Creating blank table from existing table
+
+SELECT * FROM students2
+
+INSERT INTO students2 SELECT * FROM students
+SELECT * FROM students2
+SELECT id, student_name INTO students3 FROM students;
+
+SELECT * FROM students3;
+SELECT id as student_id, student_name INTO students4 FROM students;
+SELECT id, student_name INTO students5 FROM students WHERE 1 = 5
+
+INSERT INTO students5 SELECT id,student_name FROM students
+
+--SELECT * FROM students5;
+
+CREATE TABLE student6(id int,
+					  name varchar(30),
+					  city varchar(30) default 'mumbai')
+
+INSERT INTO student6(id, name) VALUES(1, 'ram')
+INSERT INTO student6(id, name) VALUES(1, 'sham')
+INSERT INTO student6 VALUES(1, 'kam', 'Bengaluru')
+
+
+CREATE TABLE student7(id int identity(1,1), name varchar(30))
+
+INSERT INTO student7(name) VALUES('ram');
+INSERT INTO student7(name) VALUES('shyam');
+INSERT INTO student7(name) VALUES('kaam');
+
+*/
+
+--ALTER TABLE student7 ADD email varchar(30), phone varchar(30);
+--ALTER TABLE student7 DROP column city;
+
+
+
+sp_rename 'student7.name' , student_name, 'column'
+
+SELECT * FROM student7
+
+
+
+

@@ -1,0 +1,302 @@
+CREATE TABLE EMP
+(EMPNO NUMERIC(4) NOT NULL,
+ENAME VARCHAR(10),
+JOB VARCHAR(9),
+MGR NUMERIC(4),
+HIREDATE DATETIME,
+SAL NUMERIC(7, 2),
+COMM NUMERIC(7, 2),
+DEPTNO NUMERIC(2))
+
+INSERT INTO EMP VALUES
+(7369, 'SMITH', 'CLERK', 7902, '17-DEC-1980', 800, NULL, 20)
+INSERT INTO EMP VALUES
+(7499, 'ALLEN', 'SALESMAN', 7698, '20-FEB-1981', 1600, 300, 30)
+INSERT INTO EMP VALUES
+(7521, 'WARD', 'SALESMAN', 7698, '22-FEB-1981', 1250, 500, 30)
+INSERT INTO EMP VALUES
+(7566, 'JONES', 'MANAGER', 7839, '2-APR-1981', 2975, NULL, 20)
+INSERT INTO EMP VALUES
+(7654, 'MARTIN', 'SALESMAN', 7698, '28-SEP-1981', 1250, 1400, 30)
+INSERT INTO EMP VALUES
+(7698, 'BLAKE', 'MANAGER', 7839, '1-MAY-1981', 2850, NULL, 30)
+INSERT INTO EMP VALUES
+(7782, 'CLARK', 'MANAGER', 7839, '9-JUN-1981', 2450, NULL, 10)
+INSERT INTO EMP VALUES
+(7788, 'SCOTT', 'ANALYST', 7566, '09-DEC-1982', 3000, NULL, 20)
+INSERT INTO EMP VALUES
+(7839, 'KING', 'PRESIDENT', NULL, '17-NOV-1981', 5000, NULL, 10)
+INSERT INTO EMP VALUES
+(7844, 'TURNER', 'SALESMAN', 7698, '8-SEP-1981', 1500, 0, 30)
+INSERT INTO EMP VALUES
+(7876, 'ADAMS', 'CLERK', 7788, '12-JAN-1983', 1100, NULL, 20)
+INSERT INTO EMP VALUES
+(7900, 'JAMES', 'CLERK', 7698, '3-DEC-1981', 950, NULL, 30)
+INSERT INTO EMP VALUES
+(7902, 'FORD', 'ANALYST', 7566, '3-DEC-1981', 3000, NULL, 20)
+INSERT INTO EMP VALUES
+(7934, 'MILLER', 'CLERK', 7782, '23-JAN-1982', 1300, NULL, 10)
+
+CREATE TABLE DEPT
+(DEPTNO NUMERIC(2),
+DNAME VARCHAR(14),
+LOC VARCHAR(13) )
+
+INSERT INTO DEPT VALUES (10, 'ACCOUNTING', 'NEW YORK')
+INSERT INTO DEPT VALUES (20, 'RESEARCH', 'DALLAS')
+INSERT INTO DEPT VALUES (30, 'SALES', 'CHICAGO')
+INSERT INTO DEPT VALUES (40, 'OPERATIONS', 'BOSTON')
+
+CREATE TABLE BONUS
+(ENAME VARCHAR(10),
+JOB VARCHAR(9),
+SAL NUMERIC,
+COMM NUMERIC)
+
+CREATE TABLE SALGRADE
+(GRADE NUMERIC,
+LOSAL NUMERIC,
+HISAL NUMERIC)
+
+INSERT INTO SALGRADE VALUES (1, 700, 1200)
+INSERT INTO SALGRADE VALUES (2, 1201, 1400)
+INSERT INTO SALGRADE VALUES (3, 1401, 2000)
+INSERT INTO SALGRADE VALUES (4, 2001, 3000)
+INSERT INTO SALGRADE VALUES (5, 3001, 9999)
+
+CREATE TABLE DUMMY
+(DUMMY NUMERIC)
+
+INSERT INTO DUMMY VALUES (0)
+
+-------------------------------------------------------------------------------------------
+
+
+SELECT * FROM emp
+
+SELECT * FROM emp ORDER BY ename
+SELECT * FROM emp ORDER BY ename desc 
+
+SELECT * FROM emp ORDER BY deptno, sal DESC
+
+SELECT count(*) AS NoOFRECORDS FROM emp 
+
+SELECT COUNT(comm) as noofcomm FROM emp
+
+SELECT deptno FROM emp
+
+SELECT top 5 * FROM emp ORDER BY sal DESC
+
+SELECT * FROM emp WHERE Ename = 'SMITH'
+SELECT * FROM emp WHERE Ename != 'SMITH'
+SELECT * FROM emp WHERE Ename <> 'SMITH'
+
+SELECT * FROM emp WHERE sal > 3000
+SELECT * FROM emp WHERE sal >= 3000
+SELECT * FROM emp WHERE sal < 3000
+SELECT * FROM emp WHERE sal <= 3000
+
+SELECT * FROM emp WHERE hiredate > '1982-01-01'
+
+SELECT * FROM emp WHERE Ename IN ('SMITH', 'KING')
+SELECT * FROM emp WHERE sal BETWEEN 2000 AND 3000
+SELECT * FROM emp WHERE sal NOT BETWEEN 2000 AND 3000 ORDER BY sal 
+
+SELECT * FROM emp WHERE Ename LIKE 'S%'
+SELECT * FROM emp WHERE Ename NOT LIKE 'S%'
+
+----------------------------------------------------------------------------
+FUNCTIONS
+-----------------------------------------------------------------------------
+SINGLE ROW FUNCTIONS
+	- String function
+	- Number function
+	- Date function
+	- 
+
+
+SELECT ASCII('B')
+SELECT ename, LEN(ename) FROM emp
+SELECT ename, LEN(ename) FROM emp WHERE LEN(ename) > 5
+SELECT ename, CONCAT('Hi ', ename) as welmessage FROM emp
+
+SELECT ename, CONCAT_WS(' ','Hi', ename, 'how are you') as welmessage FROM emp  ---- CONCAT_WS means with space
+
+SELECT ename, LEFT(ename, 3) FROM emp
+SELECT ename, RIGHT(ename, 3) FROM emp
+SELECT ename, SUBSTRING(ename, 2,2) FROM emp  -- Starting chaarecter, number of characters
+
+
+SELECT CHARINDEX('SQL','I LOVE SQL')
+
+SELECT UPPER('sonu')
+SELECT LOWER
+
+SELECT CHARINDEX('SQL','I LOVE SQL')
+
+SELECT UPPER('sonu')
+SELECT LOWER('CHInu')
+
+SELECT ename, LOWER(ename) FROM emp
+
+SELECT UPPER(LEFT(ename, 1)), LOWER(SUBSTRING(ename, 2, LEN(ename))) FROM emp
+
+SELECT CONCAT(UPPER(LEFT(ename, 1)), LOWER(SUBSTRING(ename, 2, LEN(ename)))) FROM emp
+
+SELECT LEN(LTRIM('    chinu'))
+
+SELECT LEN('    chinu     ')
+SELECT len(ltrim(RTRIM('    chinu     ')))
+SELECT TRIM('    chinu     ')
+SELECT LEN(TRIM('    chinu     '))
+
+
+SELECT EXP(1)
+
+SELECT comm, ISNULL(0,comm) comm FROM emp
+SELECT NULLIF(ename, 'SMITH') ename_o FROM emp
+
+SELECT sal, IIF(sal> 3000, 'Good sal', IIF(sal> 2000, 'Avg sal', 'POOR')) sal_descrip FROM emp
+
+
+
+
+
+
+
+SELECT session_user
+
+
+SELECT CAST('2017-08-25' AS datetime) --- converting string into datetime
+SELECT CAST('2017-08-25' AS date)   ---- converting into date
+
+SELECT GETDATE()
+SELECT SYSDATETIME() as Date;
+
+SELECT ename, YEAR(hiredate) FROM emp WHERE YEAR(hiredate) = 1981
+SELECT YEAR(GETDATE())
+SELECT MONTH(GETDATE())
+SELECT DAY(GETDATE())
+
+SELECT DATENAME(day, '2021/09/10') AS Result1
+
+SELECT DATENAME(year, '2021/09/10') AS Result2
+
+SELECT empno, ename, sal, RANK() OVER(ORDER BY sal) AS sal_rank FROM emp
+
+
+SELECT empno, ename, sal,deptno, RANK() OVER(PARTITION BY deptno ORDER BY sal DESC) AS deptrank FROM emp
+
+SELECT empno, ename, sal,deptno, DENSE_RANK() OVER(ORDER BY sal) AS sal_rank FROM emp
+
+SELECT empno, ename, sal,deptno, DENSE_RANK() OVER(PARTITION BY deptno ORDER BY sal DESC) AS deptrank FROM emp
+
+SELECT ROW_NUMBER() OVER(ORDER BY empno) AS slno, empno, ename, deptno FROM emp
+
+SELECT sal, LEAD sal OVER(sal, 1) as Lead, empno, ename, deptno FROM emp
+
+
+---------------------------------------------------------------------------------------------------
+
+JOINS : INNER JOIN, LEFT OUTER JOIN, RIGHT OUTER JOIN, 
+
+---------------------------------------------------------------------------------------------------
+
+
+INSERT INTO emp VALUES(1, 'babjee', 'IT', 7902, getdate(), 4000, 0,70)
+INSERT INTO emp VALUES(2, 'Naveen', 'IT', 7902, getdate(), 4000, 0,70)
+
+INSERT INTO dept VALUES(40, 'Operation', 'Bostan')
+
+SELECT empno, ename, sal, emp, e.deptno, dname, loc FROM emp e
+				INNER JOIN dept d 
+				on e.deptno = d.deptno
+
+
+
+SELECT empno, ename, sal, e.deptno, dname, loc FROM emp e
+				INNER JOIN dept d 
+				on e.deptno = d.deptno
+
+SELECT empno, ename, sal, e.deptno, dname, loc FROM emp e
+				LEFT JOIN dept d 
+				on e.deptno = d.deptno
+
+SELECT empno, ename, sal, e.deptno, dname, loc FROM emp e
+				RIGHT JOIN dept d 
+				on e.deptno = d.deptno
+
+SELECT ename, sal FROM emp ORDER BY sal desc LIMIT 1
+
+SELECT e.empno, e.ename, e.mgr, m.ename as managername
+from emp e JOIN emp m on e.mgr = m.empno
+
+-------------------------------------------------------------------------------------------------
+NON EQUI JOIN 
+---------------------------------------------------------------------------------------------------
+
+SELECT empno, ename, sal, grade FROM emp e JOIN salgrade s ON e.sal BETWEEN s.losal AND s.hisal
+
+-----------------------------------------------------------------------------------------------
+SUBQUERIES
+----------------------------------------------------------------------------------------------------
+
+SELECT sal FROM emp WHERE ename = 'SMITH'
+
+SELECT * FROM emp WHERE sal > (SELECT sal FROM emp WHERE ename = 'SMITH')
+SELECT * FROM emp WHERE sal > (SELECT AVG(sal) FROM emp )
+SELECT * FROM emp WHERE sal = (SELECT MAX(sal) FROM emp )
+
+SELECT * FROM dept WHERE deptno IN (SELECT DISTINCT deptno FROM emp)
+SELECT * FROM dept WHERE deptno  NOT IN (SELECT DISTINCT deptno FROM emp)
+
+SELECT * FROM emp o WHERE sal > (SELECT AVG(sal) FROM emp i WHERE o.deptno = i.deptno)
+
+SELECT SUM(sal) as sum_sal, MAX(sal) as max_sal, MIN(sal) as min_sal, AVG(sal) as avg_sal, COUNT(sal) as noofrecords
+FROM emp e JOIN dept d ON e.deptno = d.deptno
+
+SELECT dname, SUM(sal) as sum_sal, MAX(sal) as max_sal, MIN(sal) as min_sal, AVG(sal) as avg_sal, COUNT(sal) as noofrecords
+FROM emp e JOIN dept d ON e.deptno = d.deptno GROUP BY dname
+
+--------------------------------------------------------------------------------------------------------
+SET OPERATORS : UNION, UNION ALL, INTERSECTION, MINUS, 
+--------------------------------------------------------------------------------------------------------
+
+
+/*
+CREATE TABLE COLORA(COL1 varchar(30))
+CREATE TABLE COLORB(COL1 varchar(30))
+
+INSERT INTO COLORA VALUES('RED'),('BLUE'),('GREEN'),('YELLOW'),('GREEN')
+INSERT INTO COLORB VALUES('RED'),('BLUE'),('GREEN'),('YELLOW'),('GREEN')
+*/
+
+SELECT * FROM COLORA UNION ALL SELECT * FROM COLORB
+SELECT * FROM COLORA UNION SELECT * FROM COLORB
+
+
+
+BEGIN TRANSACTION
+INSERT INTO COLORA VALUES ('BLACK')
+DELETE FROM COLORA WHERE col1 = 'BLUE'
+
+COMMIT transaction
+ROLLBACK TRANSACTION
+
+CREATE VIEW emp_view AS SELECT * FROM emp;
+
+SELECT * FROM emp_view
+
+DROP VIEW emp_view
+
+CREATE INDEX emp_indx ON emp(empno)
+CREATE UNIQUE INDEX dept_index ON dept(deptno)
+
+GRANT INSERT ON emp TO babjee WITH GRANT OPTION
+
+
+
+
+
+
+
